@@ -1,4 +1,21 @@
-<?php require("env.php");?>
+<?php
+
+    require("env.php");
+    if($_GET['eid'] != ""){
+
+    }else{
+
+    }
+
+function combobox($item,$seleteced = null){
+        for($i = 0;$i <= array_key_last($item);$i++){
+            print ' <label for="inventory_status" class="col-form-label">ステータス</label>
+                <select class="custom-select" id="inventory_status">';
+        }
+}
+
+
+?>
 <!DOCTYPE HTML>
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
