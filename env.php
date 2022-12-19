@@ -26,7 +26,7 @@ $inventory_isfixed[1][1]= "固定資産";
 #message
 define("MSG_ASSET_RENEW_COMPLETE",'<div class="alert alert-success" role="alert">物品情報を更新しました。</div>');
 define("MSG_ASSET_NOT_FOUND",'<div class="alert alert-danger" role="alert">指定された物品IDは存在しません。</div>');
-
+define("MSG_NEW_ASSET",'<div class="alert alert-info" role="alert">物品を新規登録します。</div>');
 #--------------------------common--------------------------
 
 #--------------------------maketitle--------------------------
@@ -118,6 +118,14 @@ function forms_textarea($tag_id,$label,$value="",$placeholder = "",$readonly = f
     print '<div class="form-group"><label for="'.$tag_id.'" class="col-form-label">'.$label.'</label>';
     print '<textarea class="form-control" id="'.$tag_id.'" placeholder="'.$placeholder.'" value="'.$value.'" '.$tag_option.'></textarea></div>';
 
+}
+
+function forms_submit($label,$disabled=false){
+    if($disabled){
+        print '<button type="submit" class="btn btn-secondary" disabled>'.$label.'</button>';
+    }else{
+        print '<button type="submit" class="btn btn-primary">'.$label.'</button>';
+    }
 }
 
 #-----------------------------database------------------------------

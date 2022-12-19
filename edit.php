@@ -3,12 +3,15 @@
     require("env.php");
     global $inventory_alert,$inventory_isfixed;
     $dbhandle = new SQLite3(DB_FILE);
+    $button_status = false;
     #
     if($_GET['eid'] != ""){
         $result = $dbhandle->querySingle("SELECT * from inventory WHERE inventory_id = ".$_GET["eid"].";",true);
 
         if(empty($result)){
+            $result['inventory_id'] = $_GET["eid"];
             $inventory_alert = MSG_ASSET_NOT_FOUND;#notfound
+            $button_status = true;
         }
 
     }else{
@@ -18,6 +21,7 @@
         }else{
             $result['inventory_id'] = date("Y")*100000+1;
         }
+        $inventory_alert = MSG_NEW_ASSET;
 
     }
     $status_items = db_to_array($dbhandle->query("SELECT * FROM inventory_status;"));
@@ -41,7 +45,7 @@
 
 
             <?php
-            forms_textbox("inventory_id","物品ID","","自動採番されます",true);
+            forms_textbox("inventory_id","物品ID(自動採番)",$result["inventory_id"],"自動採番されます",true);
             forms_textbox("inventory_name","物品名","");
             forms_combobox("inventory_status","ステータス",$status_items);
             forms_textbox("inventory_alias","大学資産番号","");
@@ -50,9 +54,9 @@
             forms_textbox("inventory_add_date","購入年月日","");
             forms_combobox("inventory_budget","予算区分",$budget_items);
             forms_combobox("inventory_is_fixed","動産/固定資産",$inventory_isfixed);
-            forms_textarea("inventory_memo","メモ","","ここにメモを入力")
+            forms_textarea("inventory_memo","メモ","","ここにメモを入力");
+            forms_submit("保存",$button_status);
             ?>
-            <button type="submit" class="btn btn-primary">保存</button>
         </form>
     </div>
 
