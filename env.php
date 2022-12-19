@@ -3,7 +3,8 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 #共通処理&環境変数
 #
 #
-
+#timezone
+date_default_timezone_set('Asia/Tokyo');
 #env
 define("APP_NAME","Inventory");
 define("DB_FILE","inventory.db");
@@ -12,7 +13,7 @@ define("DB_FILE","inventory.db");
 $inventory_navbar['0']['script'] = "index.php";
 $inventory_navbar['0']['name'] = "Home";
 $inventory_navbar['1']['script'] = "edit.php";
-$inventory_navbar['1']['name'] = "新規物品登録";
+$inventory_navbar['1']['name'] = "物品登録・編集";
 $inventory_navbar['2']['script'] = "list.php";
 $inventory_navbar['2']['name'] = "物品一覧";
 
@@ -20,19 +21,18 @@ $inventory_navbar['2']['name'] = "物品一覧";
 
 #common
 
-#cocoroconect
-function sqlite_connect(){
-    $db = sqlite_open(DB_FILE, 0666);
-    if (!$db) {
-        #fault
-        return false;
-    } else {
-        return $db;
+function generate_title($script_name){
+    global $inventory_navbar;
+    $page_title = "";
+    foreach($inventory_navbar as $nav_item){
+        if($script_name == $nav_item["script"]){
+            $page_title = $nav_item["name"];
+        }
+
     }
+
+    print '<title>'.$page_title.' - '.APP_NAME.'</title>';
 }
-
-#cocoroshutout
-
 
 #dynamic~~chord~~ navbar
 function generate_navbar($script_name){
