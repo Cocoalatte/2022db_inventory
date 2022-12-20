@@ -1,8 +1,9 @@
 <?php
-
+    #m@gic
     require("env.php");
-    global $inventory_alert,$inventory_isfixed;
-    $dbhandle = new SQLite3(DB_FILE);
+    global $inventory_alert,$inventory_isfixed,$dbhandle;
+
+
     $button_status = false;
     #
     if($_GET['eid'] != ""){
@@ -10,7 +11,7 @@
 
         if(empty($result)){
             $result['inventory_id'] = $_GET["eid"];
-            $inventory_alert = MSG_ASSET_NOT_FOUND;#notfound
+            $inventory_alert = MSG_ASSET_NOT_FOUND;#notfound message
             $button_status = true;
         }
 
@@ -24,17 +25,17 @@
         $inventory_alert = MSG_NEW_ASSET;
 
     }
-    $status_items = db_to_array($dbhandle->query("SELECT * FROM inventory_status;"));
-    $category_items = db_to_array($dbhandle->query("SELECT * FROM inventory_category;"));
-    $budget_items = db_to_array($dbhandle->query("SELECT * FROM inventory_budget;"));
 
+    $status_items = query_to_array($dbhandle,"SELECT * FROM inventory_status;");
+    $category_items = query_to_array($dbhandle,"SELECT * FROM inventory_category");
+    $budget_items = query_to_array($dbhandle,"SELECT * FROM inventory_budget");
 
 
 
 
 
     #maketitle
-    generate_html_header(basename(__FILE__));
+    maketitle(basename(__FILE__));
 ?>
     <div class="container">
         <!-- -->
@@ -45,6 +46,7 @@
 
 
             <?php
+            #makeform
             forms_textbox("inventory_id","物品ID(自動採番)",$result["inventory_id"],"自動採番されます",true);
             forms_textbox("inventory_name","物品名","");
             forms_combobox("inventory_status","ステータス",$status_items);
@@ -60,5 +62,4 @@
         </form>
     </div>
 
-</body>
-</html>
+<?php makefooter() ?>
