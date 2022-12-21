@@ -14,7 +14,7 @@ define("DB_FILE","inventory.db");
 $inventory_pages[0]['script'] = "index.php";
 $inventory_pages[0]['name'] = "Home";
 $inventory_pages[1]['script'] = "edit.php";
-$inventory_pages[1]['name'] = "物品登録・編集";
+$inventory_pages[1]['name'] = "物品登録";
 $inventory_pages[2]['script'] = "list.php";
 $inventory_pages[2]['name'] = "物品一覧";
 
@@ -98,7 +98,12 @@ function forms_combobox($tag_id,$label,$itemarray,$seleteced = null):void{
     print ('<div class="form-group"><label for="'.$tag_id.'" class="col-form-label">'.$label.'</label>
                     <select name="'.$tag_id.'" class="custom-select" id="'.$tag_id.'">');
     foreach($itemarray as $item){
-        print ('<option value="'.$item[0].'">'.$item[1].'</option>');
+        if($seleteced == $item[0]){
+            print ('<option value="'.$item[0].'" selected>'.$item[1].'</option>');
+        }else{
+            print ('<option value="'.$item[0].'">'.$item[1].'</option>');
+        }
+
     }
     print ('</select></div>');
 }
@@ -177,7 +182,9 @@ function csrf_make_used($param):void{
     $dbhandle->querySingle("UPDATE inventory_csrf_chk SET inventory_csrf_used = 1 WHERE inventory_csrf_hash ='".$param."';");
 }
 
+/*
 function csrf_is_used($param):bool{
     global $dbhandle;
     $result = $dbhandle->querySingle("SELECT inventory_csrf_used FROM inventory_csrf_chk WHERE inventory_csrf_hash = '".$param."';");
 }
+*/
