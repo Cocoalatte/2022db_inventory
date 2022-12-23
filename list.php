@@ -1,4 +1,5 @@
 <?php
-require("env.php");
-generate_html_header(basename(__FILE__));
+require("core.php");
+maketitle(basename(__FILE__));
+makefooter();
 ?>
