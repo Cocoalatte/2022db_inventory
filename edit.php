@@ -1,6 +1,6 @@
 <?php
     #m@gic
-    require("env.php");
+    require("core.php");
     global $inventory_alert,$inventory_isfixed,$dbhandle;
 
 
@@ -43,10 +43,10 @@
         <?php print($inventory_alert);?>
         <form>
 
-
-
             <?php
             #makeform
+            #forms_hidden("inventory_verify",generate_csrf_param());
+            forms_hidden("inventory_mode","");
             forms_textbox("inventory_id","物品ID(自動採番)",$result["inventory_id"],"自動採番されます",true);
             forms_textbox("inventory_name","物品名","");
             forms_combobox("inventory_status","ステータス",$status_items);

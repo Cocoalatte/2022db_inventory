@@ -1,8 +1,8 @@
-<?php require("env.php");
+<?php require("core.php");
 
 
-#generate
-generate_html_header(basename(__FILE__));
+#maketitle
+maketitle(basename(__FILE__));
 
 ?>
 
@@ -11,5 +11,4 @@ generate_html_header(basename(__FILE__));
         上記メニュバーから操作を選んでください。
     </div>
 
-</body>
-</html>
+<?php makefooter() ?>
