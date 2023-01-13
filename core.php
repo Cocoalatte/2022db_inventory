@@ -6,6 +6,8 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING &~E_DEPRECATED);
 #
 require("env.php");
 global $inventory_pages,$inventory_isfixed;
+
+$date_time = date("Y/m/d H:i:s");
 #--------------------------common--------------------------
 
 #--------------------------maketitle--------------------------
@@ -145,6 +147,19 @@ function db_to_array($db_input): bool|array{
 
 }
 
+function input_escape($in){
+    return SQLite3::escapeString($in);
+}
+
+
+function log_write($text):void{
+    global $date_time;
+    $fp=fopen("logs.log","a");
+    fwrite($fp,$date_time.": ". $text."\n");
+    fclose($fp);
+}
+
+
 #CSRF
 
 function generate_csrf_param(): string{
@@ -160,9 +175,13 @@ function csrf_make_used($param):void{
     $dbhandle->querySingle("UPDATE inventory_csrf_chk SET inventory_csrf_used = 1 WHERE inventory_csrf_hash ='".$param."';");
 }
 
-/*
+
 function csrf_is_used($param):bool{
     global $dbhandle;
     $result = $dbhandle->querySingle("SELECT inventory_csrf_used FROM inventory_csrf_chk WHERE inventory_csrf_hash = '".$param."';");
+    if($result == 1){
+        return true;
+    }else{
+        return false;
+    }
 }
-*/
