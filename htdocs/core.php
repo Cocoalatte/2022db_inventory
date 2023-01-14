@@ -168,6 +168,7 @@ function log_write($text):void{
 
 #CSRF
 
+/*
 function generate_csrf_param(): string{
     global $dbhandle;
     $chkhash = hash("sha256",uniqid("",true));
@@ -191,3 +192,4 @@ function csrf_is_used($param):bool{
         return false;
     }
 }
+*/
