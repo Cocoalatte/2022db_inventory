@@ -1,2 +1,6 @@
-/inventory.db
-/dbtest.php
+/htdocs/inventory.db
+/htdocs/dbtest.php
+/htdocs/logs.log
+.DS_store
+.idea
+htdocs/.DS_Store
