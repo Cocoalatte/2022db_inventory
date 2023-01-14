@@ -138,9 +138,9 @@
             forms_textbox("inventory_alias","大学資産番号",$result["inventory_alias"]);
             forms_textbox("inventory_location","保管場所",$result["inventory_location"]);
             forms_combobox("inventory_category","カテゴリ",$category_items,$result["inventory_category"]);
-            forms_textbox("inventory_add_date","購入年月日",$result["inventory_add_date"]);
+            forms_datebox("inventory_add_date","購入年月日",$result["inventory_add_date"]);
             forms_combobox("inventory_budget","予算区分",$budget_items,$result["inventory_budget"]);
-            forms_combobox("inventory_is_fixed","動産/固定資産",$isfixed_items,$result["inventory_is_fixed_asset"]);
+            forms_combobox("inventory_is_fixed","資産区分",$isfixed_items,$result["inventory_is_fixed_asset"]);
             forms_textarea("inventory_memo","メモ",$result["inventory_memo"],"ここにメモを入力");
             forms_submit("保存",$button_status);
             ?>

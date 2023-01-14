@@ -99,6 +99,16 @@ function forms_textbox($tag_id,$label,$value = "",$placeholder = "",$readonly = 
     print ('<input type="text" name="'.$tag_id.'" class="form-control" id="'.$tag_id.'" placeholder="'.$placeholder.'" value="'.$value.'" '.$tag_option.'></div>');
 
 }
+function forms_datebox($tag_id,$label,$value = "",$placeholder = "",$readonly = false):void{
+
+    if($readonly){
+        $tag_option = "readonly";
+    }
+
+    print ('<div class="form-group"><label for="'.$tag_id.'" class="col-form-label">'.$label.'</label>');
+    print ('<input type="date" name="'.$tag_id.'" class="form-control" id="'.$tag_id.'" placeholder="'.$placeholder.'" value="'.$value.'" '.$tag_option.'></div>');
+
+}
 
 function forms_textarea($tag_id,$label,$value="",$placeholder = "",$readonly = false):void{
     if($readonly){
@@ -125,7 +135,12 @@ function forms_submit($label,$disabled=false): void{
 
 #-----------------------------database-----------------------------
 #cocoroconect
-$dbhandle = new SQLite3(DB_FILE);
+if(file_exists(DB_FILE)){
+    $dbhandle = new SQLite3(DB_FILE);
+}else{
+    die("データベースに接続できません");
+}
+
 
 $status_items = query_to_array($dbhandle,"SELECT * FROM inventory_status;");
 $category_items = query_to_array($dbhandle,"SELECT * FROM inventory_category;");
