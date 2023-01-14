@@ -5,7 +5,7 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING &~E_DEPRECATED);
 #
 #
 require("env.php");
-global $inventory_pages,$inventory_isfixed;
+global $inventory_pages;
 
 $date_time = date("Y/m/d H:i:s");
 #--------------------------common--------------------------
@@ -126,6 +126,12 @@ function forms_submit($label,$disabled=false): void{
 #-----------------------------database-----------------------------
 #cocoroconect
 $dbhandle = new SQLite3(DB_FILE);
+
+$status_items = query_to_array($dbhandle,"SELECT * FROM inventory_status;");
+$category_items = query_to_array($dbhandle,"SELECT * FROM inventory_category;");
+$budget_items = query_to_array($dbhandle,"SELECT * FROM inventory_budget;");
+$isfixed_items = query_to_array($dbhandle,"SELECT * FROM inventory_asset_division;");
+
 
 #to support PDO in the future
 function query_to_array($dbhandle_,$sql): bool|array{

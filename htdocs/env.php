@@ -14,14 +14,9 @@ $inventory_pages[1]['script'] = "edit.php";
 $inventory_pages[1]['name'] = "物品登録";
 $inventory_pages[2]['script'] = "list.php";
 $inventory_pages[2]['name'] = "物品一覧";
+$inventory_pages[3]['script'] = "settings.php";
+$inventory_pages[3]['name'] = "設定";
 
-#isfixed
-$inventory_isfixed[0][0] = 0;
-$inventory_isfixed[0][1] = "動産";
-$inventory_isfixed[1][0]= 1;
-$inventory_isfixed[1][1]= "固定資産";
-$inventory_isfixed[2][0]= 2;
-$inventory_isfixed[2][1]= "消耗品";
 
 
 
@@ -31,3 +26,4 @@ define("MSG_ASSET_NOT_FOUND",'<div class="alert alert-danger" role="alert">指�
 define("MSG_NEW_ASSET",'<div class="alert alert-info" role="alert">物品を新規登録します。</div>');
 define("MSG_WRITE_FAILED_BUSY",'<div class="alert alert-danger" role="alert">情報の更新に失敗しました。(他のユーザが更新中、もしくはその他の理由により書き込めませんでした)</div>');
 define("MSG_WRITE_FAILED_NAME_NULL",'<div class="alert alert-danger" role="alert">物品名が入力されていません。</div>');
+define("MSG_DB_LOAD_FAILED",'<div class="alert alert-danger" role="alert"></div>');

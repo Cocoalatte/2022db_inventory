@@ -1,7 +1,7 @@
 <?php
     #m@gic
     require("core.php");
-    global $inventory_alert,$inventory_isfixed,$dbhandle,$date_time;
+    global $inventory_alert,$isfixed_items,$dbhandle,$date_time,$status_items,$category_items,$budget_items;
 
 
 
@@ -140,7 +140,7 @@
             forms_combobox("inventory_category","カテゴリ",$category_items,$result["inventory_category"]);
             forms_textbox("inventory_add_date","購入年月日",$result["inventory_add_date"]);
             forms_combobox("inventory_budget","予算区分",$budget_items,$result["inventory_budget"]);
-            forms_combobox("inventory_is_fixed","動産/固定資産",$inventory_isfixed,$result["inventory_is_fixed_asset"]);
+            forms_combobox("inventory_is_fixed","動産/固定資産",$isfixed_items,$result["inventory_is_fixed_asset"]);
             forms_textarea("inventory_memo","メモ",$result["inventory_memo"],"ここにメモを入力");
             forms_submit("保存",$button_status);
             ?>

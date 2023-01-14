@@ -1,24 +1,18 @@
 <?php
 require("core.php");
-global $inventory_isfixed,$dbhandle,$date_time;
+global $isfixed_items,$dbhandle,$date_time,$status_items,$category_items,$budget_items;
 maketitle(basename(__FILE__));
 #maketable
 
-$status_items = query_to_array($dbhandle,"SELECT * FROM inventory_status;");
-$category_items = query_to_array($dbhandle,"SELECT * FROM inventory_category");
-$budget_items = query_to_array($dbhandle,"SELECT * FROM inventory_budget");
-
-$result = $dbhandle -> query("SELECT * FROM inventory ORDER BY inventory_id ASC;");
-
-if($result != false){
-    $i = 0;
+if($result = query_to_array($dbhandle ,"SELECT * FROM inventory ORDER BY inventory_id ASC;")){
     $table_out = "";
-    while($low = $result->fetchArray()) {
-        $inventory_status = $status_items[$low["inventory_status"]][1];
-        $inventory_category = $category_items[$low["inventory_category"]][1];
-        $inventory_budget = $budget_items[$low["inventory_budget"]][1];
-        $inventory_is_fixed = $inventory_isfixed[$low["inventory_is_fixed_asset"]][1];
-        $out = '<tr><th scope="row"><a href="edit.php?eid='.$low["inventory_id"].'">'.$low["inventory_id"].'</a></th><td>'.$low["inventory_name"].'</td><td>'.$inventory_status. '</td><td>'.$low["inventory_alias"]. '</td><td>'.$low["inventory_location"].'</td><td>'.$inventory_category.'</td><td>'.$low["inventory_add_date"].'</td><td>'.$inventory_budget.'</td><td>'.$inventory_is_fixed.'</td><td>'.$low["inventory_last_modify"].'</td></tr>';
+
+    foreach($result as $row) {
+        $inventory_status = $status_items[$row["inventory_status"]][1];
+        $inventory_category = $category_items[$row["inventory_category"]][1];
+        $inventory_budget = $budget_items[$row["inventory_budget"]][1];
+        $inventory_is_fixed = $isfixed_items[$row["inventory_is_fixed_asset"]][1];
+        $out = '<tr><th scope="row"><a href="edit.php?eid='.$row["inventory_id"].'">'.$row["inventory_id"].'</a></th><td>'.$row["inventory_name"].'</td><td>'.$inventory_status. '</td><td>'.$row["inventory_alias"]. '</td><td>'.$row["inventory_location"].'</td><td>'.$inventory_category.'</td><td>'.$row["inventory_add_date"].'</td><td>'.$inventory_budget.'</td><td>'.$inventory_is_fixed.'</td><td>'.$row["inventory_last_modify"].'</td></tr>';
         $table_out = $table_out.$out."\n";
 
     }
@@ -29,6 +23,7 @@ if($result != false){
     <div class="container">
         <!-- -->
         <h1 class="page-header">物品一覧</h1>
+        <?php print($inventory_alert);?>
         物品番号を押すと詳細閲覧・編集ができます。
         <div class="table-responsive">
             <table class="table table-striped table-sm">
@@ -50,6 +45,7 @@ if($result != false){
                     <?php print($table_out);?>
                 </tbody>
             </table>
+
         </div>
     </div>
 <?php
