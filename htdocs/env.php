@@ -20,8 +20,14 @@ $inventory_isfixed[0][0] = 0;
 $inventory_isfixed[0][1] = "動産";
 $inventory_isfixed[1][0]= 1;
 $inventory_isfixed[1][1]= "固定資産";
+$inventory_isfixed[2][0]= 2;
+$inventory_isfixed[2][1]= "消耗品";
+
+
 
 #message
 define("MSG_ASSET_RENEW_COMPLETE",'<div class="alert alert-success" role="alert">物品情報を更新しました。</div>');
 define("MSG_ASSET_NOT_FOUND",'<div class="alert alert-danger" role="alert">指定された物品IDは存在しません。</div>');
 define("MSG_NEW_ASSET",'<div class="alert alert-info" role="alert">物品を新規登録します。</div>');
+define("MSG_WRITE_FAILED_BUSY",'<div class="alert alert-danger" role="alert">情報の更新に失敗しました。(他のユーザが更新中、もしくはその他の理由により書き込めませんでした)</div>');
+define("MSG_WRITE_FAILED_NAME_NULL",'<div class="alert alert-danger" role="alert">物品名が入力されていません。</div>');
