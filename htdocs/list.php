@@ -104,7 +104,7 @@ if($result = query_to_array($dbhandle ,"SELECT * FROM inventory ORDER BY invento
         <h1 class="page-header">物品一覧</h1>
 
         物品番号を押すと詳細閲覧・編集ができます。<br>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#filterModal">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#filterModal" disabled>
             絞り込み設定
         </button>
         <div class="table-responsive">
