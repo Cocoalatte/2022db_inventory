@@ -22,8 +22,9 @@ if($result = query_to_array($dbhandle ,"SELECT * FROM inventory ORDER BY invento
 ?>
     <div class="container">
         <!-- -->
-        <h1 class="page-header">物品一覧</h1>
         <?php print($inventory_alert);?>
+        <h1 class="page-header">物品一覧</h1>
+
         物品番号を押すと詳細閲覧・編集ができます。
         <div class="table-responsive">
             <table class="table table-striped table-sm">
@@ -37,7 +38,7 @@ if($result = query_to_array($dbhandle ,"SELECT * FROM inventory ORDER BY invento
                     <th scope="col">カテゴリ</th>
                     <th scope="col">購入年月日</th>
                     <th scope="col">予算区分</th>
-                    <th scope="col">動産/固定資産</th>
+                    <th scope="col">資産区分</th>
                     <th scope="col">最終更新日</th>
                 </tr>
                 </thead>
