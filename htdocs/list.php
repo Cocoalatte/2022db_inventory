@@ -45,7 +45,7 @@ if($result = query_to_array($dbhandle ,"SELECT * FROM inventory ORDER BY invento
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="filterModaltitle">絞り込み設定</h5>
+                    <h5 class="modal-title" id="filterModaltitle">絞り込み設定(工事中)</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
