@@ -149,6 +149,15 @@ function forms_textarea($tag_id,$label,$value="",$placeholder = "",$readonly = f
 
 }
 
+function forms_radio($tag_id,$name,$label,$value,$selected = false){
+    if($selected){
+        $checked = "checked";
+    }
+    print('<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" name="'.$name.'" id="'.$tag_id.'" value="'.$value.'" '.$checked.'>
+  <label class="form-check-label" for="'.$tag_id.'">'.$label.'</label></div>');
+}
+
 function forms_hidden($tag_id,$value = ""):void{
     print ('<input type="hidden" name="'.$tag_id.'" value="'.$value.'">');
 }
@@ -259,6 +268,9 @@ function status_msg($status_code = 0):string{
                 break;
             case 4:
                 $inventory_alert = MSG_AMOUNT_NOT_INT;
+                break;
+            case 5:
+                $inventory_alert = MSG_ITEM_EMPTY;
                 break;
         }
         setcookie('status',0,time() + 3600);
