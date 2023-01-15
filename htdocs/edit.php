@@ -12,7 +12,7 @@
             setcookie('status',3,time() + 3600);
             //header("HTTP/1.1 302");
             header("Location: ./edit.php");
-            die();
+            redirect302("./edit.php");
         }
 
         $inventory_id = input_escape($_POST["inventory_id"]);
@@ -58,13 +58,11 @@
             $dbhandle->querySingle("COMMIT;");
             setcookie('status',1,time() + 3600);
             //header("HTTP/1.1 302");
-            header("Location: ./edit.php?eid=".$inventory_id);
-            die();
+            redirect302("./edit.php?eid=".$inventory_id);
         }else{
             $dbhandle->querySingle("ROLLBACK;");
             setcookie('status',2,time() + 3600);
-            //header("HTTP/1.1 302");
-            header("Location: ./edit.php");
+            redirect302("./edit.php");
             die();
         }
     }
@@ -99,26 +97,10 @@
 
     }
 
-    $status_items = query_to_array($dbhandle,"SELECT * FROM inventory_status;");
-    $category_items = query_to_array($dbhandle,"SELECT * FROM inventory_category");
-    $budget_items = query_to_array($dbhandle,"SELECT * FROM inventory_budget");
-
-
-    switch($_COOKIE["status"]){
-        case 1:
-            $inventory_alert = MSG_ASSET_RENEW_COMPLETE;
-            break;
-        case 2:
-            $inventory_alert = MSG_WRITE_FAILED_BUSY;
-            break;
-        case 3:
-            $inventory_alert = MSG_WRITE_FAILED_NAME_NULL;
-            break;
-    }
-    setcookie('status',0,time() + 3600);
 
 
 
+    $inventory_alert = status_msg($_COOKIE["status"]);
     #maketitle
     maketitle(basename(__FILE__));
 ?>

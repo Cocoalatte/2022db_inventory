@@ -221,3 +221,31 @@ function csrf_is_used($param):bool{
     }
 }
 */
+
+#--------action------
+
+function redirect302($url):void{
+    header("Location: ".$url);
+    die();
+}
+
+function status_msg($status_code = 0):string{
+    if($status_code != 0 && $status_code != ""){
+        switch($status_code){
+            case 1:
+                $inventory_alert = MSG_ASSET_RENEW_COMPLETE;
+                break;
+            case 2:
+                $inventory_alert = MSG_WRITE_FAILED_BUSY;
+                break;
+            case 3:
+                $inventory_alert = MSG_WRITE_FAILED_NAME_NULL;
+                break;
+        }
+        setcookie('status',0,time() + 3600);
+        return $inventory_alert;
+    }else{
+        return "";
+    }
+
+}
