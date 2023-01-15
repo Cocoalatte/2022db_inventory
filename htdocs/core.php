@@ -7,7 +7,7 @@ error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING &~E_DEPRECATED);
 require("env.php");
 global $inventory_pages;
 
-$date_time = date("Y/m/d H:i:s");
+$date_time = date("Y-m-d H:i:s");
 #--------------------------common--------------------------
 
 #--------------------------maketitle--------------------------
@@ -18,6 +18,7 @@ function maketitle($script_name):void{
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     ');
 
     generate_title($script_name);
@@ -75,8 +76,8 @@ function makefooter():void{
 #--------------------------form parts maker--------------------------
 
 function forms_combobox($tag_id,$label,$itemarray,$seleteced = null):void{
-    print ('<div class="form-group"><label for="'.$tag_id.'" class="col-form-label">'.$label.'</label>
-                    <select name="'.$tag_id.'" class="custom-select" id="'.$tag_id.'">');
+    print ('<div class="form-group row"><label for="'.$tag_id.'" class="col-form-label col-sm-2">'.$label.'</label>
+                    <select name="'.$tag_id.'" class="custom-select  col-sm-8" id="'.$tag_id.'">');
     foreach($itemarray as $item){
         if($seleteced == $item[0]){
             print ('<option value="'.$item[0].'" selected>'.$item[1].'</option>');
@@ -89,34 +90,46 @@ function forms_combobox($tag_id,$label,$itemarray,$seleteced = null):void{
 }
 
 
-function forms_textbox($tag_id,$label,$value = "",$placeholder = "",$readonly = false):void{
+function forms_textbox($tag_id,$label,$value = "",$placeholder = "",$readonly = false,$required = false):void{
 
     if($readonly){
         $tag_option = "readonly";
     }
+    if($required){
+        $tag_option = $tag_option." required";
+        $req_mark ='<span class="badge badge-danger">必須</span>';
+    }
 
-    print ('<div class="form-group"><label for="'.$tag_id.'" class="col-form-label">'.$label.'</label>');
-    print ('<input type="text" name="'.$tag_id.'" class="form-control" id="'.$tag_id.'" placeholder="'.$placeholder.'" value="'.$value.'" '.$tag_option.'></div>');
+    print ('<div class="form-group row"><label for="'.$tag_id.'" class="col-form-label col-sm-2">'.$label.' '.$req_mark.'</label>');
+    print ('<input type="text" name="'.$tag_id.'" class="form-control col-sm-8" id="'.$tag_id.'" placeholder="'.$placeholder.'" value="'.$value.'" '.$tag_option.'></div>');
 
 }
-function forms_datebox($tag_id,$label,$value = "",$placeholder = "",$readonly = false):void{
+function forms_datebox($tag_id,$label,$value = "",$placeholder = "",$readonly = false,$required = false):void{
 
     if($readonly){
         $tag_option = "readonly";
     }
+    if($required){
+        $tag_option = $tag_option." required";
+        $req_mark ='<span class="badge badge-danger">必須</span>';
+    }
 
-    print ('<div class="form-group"><label for="'.$tag_id.'" class="col-form-label">'.$label.'</label>');
-    print ('<input type="date" name="'.$tag_id.'" class="form-control" id="'.$tag_id.'" placeholder="'.$placeholder.'" value="'.$value.'" '.$tag_option.'></div>');
+    print ('<div class="form-group row"><label for="'.$tag_id.'" class="col-form-label col-sm-2">'.$label.' '.$req_mark.'</label>');
+    print ('<input type="date" name="'.$tag_id.'" class="form-control  col-sm-8" id="'.$tag_id.'" placeholder="'.$placeholder.'" value="'.$value.'" '.$tag_option.'></div>');
 
 }
 
-function forms_textarea($tag_id,$label,$value="",$placeholder = "",$readonly = false):void{
+function forms_textarea($tag_id,$label,$value="",$placeholder = "",$readonly = false,$required = false):void{
     if($readonly){
         $tag_option = "readonly";
     }
+    if($required){
+        $tag_option = $tag_option." required";
+        $req_mark ='<span class="badge badge-danger">必須</span>';
+    }
 
-    print ('<div class="form-group"><label for="'.$tag_id.'" class="col-form-label">'.$label.'</label>');
-    print ('<textarea class="form-control" name="'.$tag_id.'" id="'.$tag_id.'" placeholder="'.$placeholder.'" '.$tag_option.'>'.$value.'</textarea></div>');
+    print ('<div class="form-group row"><label for="'.$tag_id.'" class="col-form-label col-sm-2">'.$label.' '.$req_mark.'</label>');
+    print ('<textarea class="form-control col-sm-8" name="'.$tag_id.'" id="'.$tag_id.'" placeholder="'.$placeholder.'" '.$tag_option.'>'.$value.'</textarea></div>');
 
 }
 
