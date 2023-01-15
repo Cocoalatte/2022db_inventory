@@ -187,12 +187,12 @@ $isfixed_items = query_to_array($dbhandle,"SELECT * FROM inventory_asset_divisio
 
 
 #to support PDO in the future
-function query_to_array($dbhandle_,$sql): bool|array{
+function query_to_array($dbhandle_,$sql): bool|array|null{
     return db_to_array($dbhandle_->query($sql));
 }
 
-function db_to_array($db_input): bool|array{
-    if($db_input){
+function db_to_array($db_input): bool|array|null{
+    if(!empty($db_input)){
         $i = 0;
         while($toarraytmp = $db_input->fetchArray()){
             $db_data[$i] = $toarraytmp;

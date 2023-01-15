@@ -19,9 +19,8 @@ if($_POST["mode"] == 1){
     }
 }
 
-
-if($result = query_to_array($dbhandle ,"SELECT * FROM inventory ORDER BY inventory_id ASC;")){
-    $table_out = "";
+$result = query_to_array($dbhandle ,"SELECT * FROM inventory ORDER BY inventory_id ASC;");
+ $table_out = "";
     if($result != false){
         foreach($result as $row) {
             $inventory_status = $status_items[$row["inventory_status"]][1];
@@ -36,7 +35,7 @@ if($result = query_to_array($dbhandle ,"SELECT * FROM inventory ORDER BY invento
         $inventory_alert = status_msg(5);
     }
 
-}
+
 
 
 ?>
