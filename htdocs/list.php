@@ -3,23 +3,58 @@ require("core.php");
 global $isfixed_items,$dbhandle,$date_time,$status_items,$category_items,$budget_items;
 maketitle(basename(__FILE__));
 #maketable
+$filter_status = "all";
+$filter_category = "all";
+$filter_division = "all";
+$filter_budget = "all";
 
 if($_POST["mode"] == 1){
-    if($_POST["category"]!= "ALL"){
-        $filter_category = $_POST["category"];
+    $filter_q="";
+    if( $_POST["category"] != ""){
+        if($_POST["category"]!= "all" ){
+            $filter_category = input_escape($_POST["category"]);
+            $filter_q = "WHERE inventory_category = ".$filter_category;
+        }
+
     }
-    if($_POST["status"]!= "ALL"){
-        $filter_status = $_POST["category"];
+    if($_POST["status"]!= ""){
+        if($_POST["status"]!= "all"){
+            $filter_status = input_escape($_POST["status"]);
+            if($filter_q != ""){
+                $filter_q = $filter_q . " AND inventory_status = ".$filter_status;
+            }else{
+                $filter_q = "WHERE inventory_status =".$filter_status;
+            }
+        }
+
+
     }
-    if($_POST["budget"]!= "ALL"){
-        $filter_budget = $_POST["category"];
+    if($_POST["budget"]!= ""){
+        if($_POST["budget"]!= "all" ){
+            $filter_budget = input_escape($_POST["budget"]);
+            if($filter_q != ""){
+                $filter_q = $filter_q . " AND inventory_budget = ".$filter_budget;
+            }else{
+                $filter_q = "WHERE inventory_budget =".$filter_budget;
+            }
+        }
+
     }
-    if($_POST["division"]!= "ALL"){
-        $filter_division = $_POST["category"];
+    if($_POST["division"]!= ""){
+        if($_POST["division"]!= "all" ){
+            $filter_division = input_escape($_POST["division"]);
+            if($filter_q != ""){
+                $filter_q = $filter_q . " AND inventory_is_fixed_asset = ".$filter_division;
+            }else{
+                $filter_q = "WHERE inventory_is_fixed_asset =".$filter_division;
+            }
+        }
+
     }
 }
-
-$result = query_to_array($dbhandle ,"SELECT * FROM inventory ORDER BY inventory_id ASC;");
+$query = "SELECT * FROM inventory ".$filter_q." ORDER BY inventory_id ASC;";
+log_write("[SQLite3] exec:".$query);
+$result = query_to_array($dbhandle ,$query);
  $table_out = "";
     if($result != false){
         foreach($result as $row) {
@@ -56,34 +91,74 @@ $result = query_to_array($dbhandle ,"SELECT * FROM inventory ORDER BY inventory_
                         <h3>カテゴリ</h3>
                         <?php
                             forms_hidden("mode",1);
-                            forms_radio("s_ca","category","すべて","all",false);
+                            if($filter_category == "all"){
+                                forms_radio("s_ca","category","すべて","all",true);
+                            }else{
+                                forms_radio("s_ca","category","すべて","all",false);
+                            }
+
                             foreach($category_items as $item){
-                                forms_radio("s_c".$item[0],"category",$item[1],$item[0],false);
+                                if($filter_category == $item[0]){
+                                    forms_radio("s_c".$item[0],"category",$item[1],$item[0],true);
+                                }else{
+                                    forms_radio("s_c".$item[0],"category",$item[1],$item[0],false);
+                                }
+
                             }
                         ?>
                         <hr>
                         <h3>ステータス</h3>
                         <?php
-                        forms_radio("s_sa","status","すべて","all",false);
-                        foreach($status_items as $item){
-                            forms_radio("s_s".$item[0],"status",$item[1],$item[0],false);
-                        }
+                            if($filter_status == "all"){
+                                forms_radio("s_sa","status","すべて","all",true);
+                            }else{
+                                forms_radio("s_sa","status","すべて","all",false);
+                            }
+
+                            foreach($status_items as $item){
+                                if($filter_status == $item[0]){
+                                    forms_radio("s_s".$item[0],"status",$item[1],$item[0],true);
+                                }else{
+                                    forms_radio("s_s".$item[0],"status",$item[1],$item[0],false);
+                                }
+
+                            }
                         ?>
                         <hr>
                         <h3>予算区分</h3>
                         <?php
-                        forms_radio("s_ba","budget","すべて","all",false);
-                        foreach($budget_items as $item){
-                            forms_radio("s_b".$item[0],"budget",$item[1],$item[0],false);
-                        }
+                            if($filter_budget == "all"){
+                                forms_radio("s_ba","budget","すべて","all",true);
+                            }else{
+                                forms_radio("s_ba","budget","すべて","all",false);
+                            }
+
+                            foreach($budget_items as $item){
+                                if($filter_budget ==$item[0]){
+                                    forms_radio("s_b".$item[0],"budget",$item[1],$item[0],true);
+                                }else{
+                                    forms_radio("s_b".$item[0],"budget",$item[1],$item[0],false);
+                                }
+
+                            }
                         ?>
                         <hr>
                         <h3>資産区分</h3>
                         <?php
-                        forms_radio("s_dva","division","すべて","all",false);
-                        foreach($isfixed_items as $item){
-                            forms_radio("s_dv".$item[0],"division",$item[1],$item[0],false);
-                        }
+                            if($filter_division == "all"){
+                                forms_radio("s_dva","division","すべて","all",true);
+                            }else{
+                                forms_radio("s_dva","division","すべて","all",false);
+                            }
+
+                            foreach($isfixed_items as $item){
+                                if($filter_division == $item[0]){
+                                    forms_radio("s_dv".$item[0],"division",$item[1],$item[0],true);
+                                }else{
+                                    forms_radio("s_dv".$item[0],"division",$item[1],$item[0],false);
+                                }
+
+                            }
                         ?>
 
                 </div>
@@ -103,7 +178,7 @@ $result = query_to_array($dbhandle ,"SELECT * FROM inventory ORDER BY inventory_
         <h1 class="page-header">物品一覧</h1>
 
         物品番号を押すと詳細閲覧・編集ができます。<br>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#filterModal" disabled>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#filterModal">
             絞り込み設定
         </button>
         <div class="table-responsive">

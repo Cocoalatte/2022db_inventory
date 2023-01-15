@@ -132,7 +132,7 @@
             forms_datebox("inventory_add_date","購入年月日",$result["inventory_add_date"]);
             forms_combobox("inventory_budget","予算区分",$budget_items,$result["inventory_budget"]);
             forms_combobox("inventory_is_fixed","資産区分",$isfixed_items,$result["inventory_is_fixed_asset"]);
-            forms_numberbox("inventory_amount","取得金額",0,"",false,true);
+            forms_numberbox("inventory_amount","取得金額",$result["inventory_amount"],"",false,true);
             forms_textarea("inventory_memo","メモ",$result["inventory_memo"],"ここにメモを入力");
             forms_submit("保存",$button_status);
             ?>
