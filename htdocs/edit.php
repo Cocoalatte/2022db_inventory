@@ -124,8 +124,11 @@
 ?>
     <div class="container">
         <!-- -->
-        <h1 class="page-header">物品詳細・編集</h1>
         <?php print($inventory_alert);?>
+        <h1 class="page-header">物品詳細・編集</h1>
+
+
+
         <form method="post" action="edit.php">
 
             <?php
@@ -133,7 +136,7 @@
             #forms_hidden("inventory_verify",generate_csrf_param());
             forms_hidden("inventory_mode",$inventory_edit_mode);
             forms_textbox("inventory_id","物品ID(自動)",$inventory_id,"自動採番されます",true);
-            forms_textbox("inventory_name","物品名(必須)",$result["inventory_name"]);
+            forms_textbox("inventory_name","物品名",$result["inventory_name"],"",false,true);
             forms_combobox("inventory_status","ステータス",$status_items,$result["inventory_status"]);
             forms_textbox("inventory_alias","大学資産番号",$result["inventory_alias"]);
             forms_textbox("inventory_location","保管場所",$result["inventory_location"]);
