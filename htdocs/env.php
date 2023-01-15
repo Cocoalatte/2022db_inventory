@@ -27,3 +27,4 @@ define("MSG_NEW_ASSET",'<div class="alert alert-info" role="alert">物品を新�
 define("MSG_WRITE_FAILED_BUSY",'<div class="alert alert-danger" role="alert">情報の更新に失敗しました。(他のユーザが更新中、もしくはその他の理由により書き込めませんでした)</div>');
 define("MSG_WRITE_FAILED_NAME_NULL",'<div class="alert alert-danger" role="alert">物品名が入力されていません。</div>');
 define("MSG_ITEM_EMPTY",'<div class="alert alert-danger" role="alert">データが存在しません</div>');
+define("MSG_AMOUNT_NOT_INT",'<div class="alert alert-danger" role="alert">情報の更新に失敗しました(取得金額は数値でなければいけません)</div>');

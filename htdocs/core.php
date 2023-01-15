@@ -104,6 +104,22 @@ function forms_textbox($tag_id,$label,$value = "",$placeholder = "",$readonly = 
     print ('<input type="text" name="'.$tag_id.'" class="form-control col-sm-8" id="'.$tag_id.'" placeholder="'.$placeholder.'" value="'.$value.'" '.$tag_option.'></div>');
 
 }
+
+function forms_numberbox($tag_id,$label,$value = "",$placeholder = "",$readonly = false,$required = false):void{
+
+    if($readonly){
+        $tag_option = "readonly";
+    }
+    if($required){
+        $tag_option = $tag_option." required";
+        $req_mark ='<span class="badge badge-danger">必須</span>';
+    }
+
+    print ('<div class="form-group row"><label for="'.$tag_id.'" class="col-form-label col-sm-2">'.$label.' '.$req_mark.'</label>');
+    print ('<input type="number" name="'.$tag_id.'" class="form-control col-sm-8" id="'.$tag_id.'" placeholder="'.$placeholder.'" value="'.$value.'" '.$tag_option.'></div>');
+
+}
+
 function forms_datebox($tag_id,$label,$value = "",$placeholder = "",$readonly = false,$required = false):void{
 
     if($readonly){
@@ -240,6 +256,9 @@ function status_msg($status_code = 0):string{
                 break;
             case 3:
                 $inventory_alert = MSG_WRITE_FAILED_NAME_NULL;
+                break;
+            case 4:
+                $inventory_alert = MSG_AMOUNT_NOT_INT;
                 break;
         }
         setcookie('status',0,time() + 3600);
