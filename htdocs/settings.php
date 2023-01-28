@@ -110,7 +110,7 @@ maketitle(basename(__FILE__));
 
                         forms_hidden("inventory_mode","category");
                         forms_textbox("add_item","追加するカテゴリ","","追加したいカテゴリ名を入力",false,true);
-                        forms_submit("保存");
+                        forms_submit("追加");
                     ?>
                 </form>
             </div>
@@ -132,7 +132,7 @@ maketitle(basename(__FILE__));
 
                     forms_hidden("inventory_mode","budget");
                     forms_textbox("add_item","追加する予算区分","","追加したい区分名を入力",false,true);
-                    forms_submit("保存");
+                    forms_submit("追加");
                     ?>
                 </form>
             </div>
@@ -154,7 +154,7 @@ maketitle(basename(__FILE__));
 
                     forms_hidden("inventory_mode","isfixed");
                     forms_textbox("add_item","追加する資産区分","","追加したい区分名を入力",false,true);
-                    forms_submit("保存");
+                    forms_submit("追加");
                     ?>
                 </form>
             </div>
