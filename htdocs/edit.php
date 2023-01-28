@@ -134,6 +134,7 @@
             forms_combobox("inventory_is_fixed","資産区分",$isfixed_items,$result["inventory_is_fixed_asset"]);
             forms_numberbox("inventory_amount","取得金額",$result["inventory_amount"],"",false,true);
             forms_textarea("inventory_memo","メモ",$result["inventory_memo"],"ここにメモを入力");
+            forms_textbox("inventory_last_modify","最終更新日時",$result["inventory_last_modify"],"",true);
             forms_submit("保存",$button_status);
             ?>
         </form>
